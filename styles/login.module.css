@@ -1,0 +1,26 @@
+.loginContainer{
+	width: 500px;
+	height: 500px;
+	margin: 20px auto;
+}
+.loginForm{
+	background-color: cadetblue;
+	padding: 50px;
+	border-radius: 10px;
+}
+.link{
+	text-decoration: none !important;
+	position: relative;
+	left: 300px;
+	top: -60px;
+	color: rgb(206, 174, 32) !important;
+	box-shadow: 2px 2px 2px rgb(109, 109, 230);
+	padding: 5px;
+
+}
+
+.forgot {
+	position: relative;
+	left: 100px;
+	top: -30px;
+}

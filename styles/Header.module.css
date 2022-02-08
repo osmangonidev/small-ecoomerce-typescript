@@ -1,0 +1,11 @@
+#login{
+	text-decoration: none !important;
+	color: black !important;
+}
+.user{
+	margin-left: 20px;
+	margin-right: 50px;
+}
+.log-out{
+	cursor: pointer;
+}

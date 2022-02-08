@@ -1,0 +1,12 @@
+.aboutContainer{
+    margin: 50px 40px ;
+    
+}
+.description{
+    line-height: 1.7;
+    font-weight: 300;
+}
+.title{
+    font-size: 16px !important;
+    font-weight: 300 !important;
+}
