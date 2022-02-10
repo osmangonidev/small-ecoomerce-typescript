@@ -38,7 +38,7 @@ export default function Cart() {
           setNet(netSum);
         });
     }
-  }, []);
+  }, [cartItems, isLogged]);
 
   if (!isLogged || sessionStorage.getItem('token') == 'undefined') {
     return <Login />;
