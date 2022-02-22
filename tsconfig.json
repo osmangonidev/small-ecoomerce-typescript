@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Nav.tsx"  ],
+, "components/Nav.tsx", "pages/register.jsx", "pages/login.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
+
 import { AppContext } from "../pages/_app";
 export default function CartItem({
   item,
@@ -14,31 +16,40 @@ export default function CartItem({
   const [net, setNet] = useState(netPrice);
 
   const history = useRouter();
+
+  const itemDeleteResult = useMutation(
+    "deleteFeedback",
+    () =>
+      fetch(`http://149.28.209.208/azzoa-spa/api/cart/${item.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }).then((res) => res.json()).then(result => cartResult.refetch()),
+  );
+  const cartResult = useQuery(
+    "cartData",
+    () =>
+      fetch("http://149.28.209.208/azzoa-spa/api/cart", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => setCart(result.data.json_object.items.length)),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
+
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    fetch(`http://149.28.209.208/azzoa-spa/api/cart/${item.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    })
-      .then((data) => data.json())
-      .then((res) => {
-        fetch("http://149.28.209.208/azzoa-spa/api/cart", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        })
-          .then((data) => data.json())
-          .then((result) => {
-            setCartItems(result.data.json_object.items);
-            setCart(result.data.json_object.items.length);
-          });
-      });
+    itemDeleteResult.mutate();
   };
 
   async function handleQuantityPlus(e: any) {
